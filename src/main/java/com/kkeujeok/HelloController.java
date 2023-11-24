@@ -11,11 +11,7 @@ public class HelloController {
     @GetMapping
     public String hello() {
 
-        return "CI/CD - Deploy Test";
+        return "CI/CD - Deploy Test222";
     }
 
-    @GetMapping("/what")
-    public String what() {
-        return "2";
-    }
 }
