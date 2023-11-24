@@ -11,6 +11,11 @@ public class HelloController {
     @GetMapping
     public String hello() {
 
-        return "kkeujeok kkeujeok";
+        return "kkeujeok ssssss";
+    }
+
+    @GetMapping("/what")
+    public String what() {
+        return "2";
     }
 }
