@@ -1,32 +1,4 @@
-##DB 설정
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-##    url: jdbc:mysql://rds-kkeujeok-instance.cltggg11f5qt.ap-northeast-2.rds.amazonaws.com:3306/kkeujeok_rds_name?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-##    username: kkeujeok
-##    password: 2023kkeujeok
-#    url: ENC(OyS1w/kwPA9S3XrN8J5zHd9oVv1KRfcGu2o67PqGRIoDVrsV4u4ztYCc2lj4YAR6aSd8cr3JDOpaYiWrjasILHTJVFKJRuyna8DDJiuhGKzp4SQ1zhEK+b9Bmx8WmsoRk+D55TyFP5hLCx82vCTv3H+Z4lpDLrCkNQoxueQphU5rIUk7nP7zDZoyAk/562cuD5XXoyH/GUCgHKoQyFvxj1xFR0RnEOBJ)
-#    username: ENC(LOH2GhMxjXAbvMuGcL71XJKHZPLhln9v)
-#    password: ENC(GpcZGS8MeA9D5jo6KvoKTbteYQgQxcJt)
-#
-#  #JPA 설정
-#  jpa:
-#    database-platform:
-#    hibernate:
-#      ddl-auto: create
-#
-#    #배포 할 떄는 open-in-view false 설정
-#    open-in-view: false
-#    properties:
-#      hibernate:
-#        show_sql: true
-#        format_sql: true
-#        dialect: org.hibernate.dialect.MySQL8Dialect
-#
-#jasypt:
-#  encryptor:
-#    bean: jasyptStringEncryptor
-#    password : 5678
+
 
 #H2 DB 설정
 spring:
