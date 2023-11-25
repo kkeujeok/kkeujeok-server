@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rds-kkeujeok-instance.cltggg11f5qt.ap-northeast-2.rds.amazonaws.com:3306/kkeujeok_rds_name?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: kkeujeok
-    password: 2023kkeujeok
+    url: ${{ secrets.RDS_URL }}
+    username: ${{ secrets.RDS_USERNAME }}
+    password: ${{ secrets.RDS_PASSWORD }}
 
   #JPA 설정
   jpa:

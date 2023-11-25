@@ -36,6 +36,17 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+#    # Github Repository Secrets를 통해 환경 변수 파일을 생성합니다.
+#    - name: Generate Environment Variables File for Production
+#      run: |
+#        echo "RDS_URL=$RDS_URL" >> .env.production
+#        echo "RDS_USERNAME=$RDS_USERNAME" >> .env.production
+#        echo "RDS_PASSWORD=$RDS_PASSWORD" >> .env.production
+#      env:
+#        RDS_URL: ${{ secrets.RDS_URL }}
+#        RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
+#        RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
+
     #추가
     - name: Make Gradle Wrapper script executable
       run: chmod +x /home/runner/work/kkeujeok-server/kkeujeok-server/gradlew
