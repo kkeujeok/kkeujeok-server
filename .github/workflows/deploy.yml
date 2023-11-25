@@ -14,6 +14,7 @@ env:
   S3_BUCKET_NAME: kkeujeok-cicd-s3-bucket
   CODE_DEPLOY_APPLICATION_NAME: kkeujeok-codedeploy-app
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: kkeujeok-codedeploy-group
+  ENCRYPTOR_KEY: ${{ secrets.ENCRYPTOR_KEY }}
 
 permissions:
   contents: read
@@ -23,11 +24,6 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     environment: production
-
-#    env:
-#      RDS_URL: ${{ secrets.RDS_URL }}
-#      RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
-#      RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
 
     steps:
     # (1) 기본 체크아웃
@@ -41,26 +37,6 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-#    - name: Copy Secret
-#      env:
-#        RDS_URL: ${{ secrets.RDS_SECRET }}
-#        RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
-#        RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
-#        RDS_SECRET_DIR: src/main/resources
-##        RDS_SECRET_TEST_DIR: src/test/resources
-#        RDS_SECRET_DIR_FILE_NAME: application-secret.yml
-
-#      run:
-#           mkdir -p $RDS_SECRET_DIR &&
-#           echo $RDS_URL | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-#           echo $RDS_USERNAME | base64 --decode >> $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-#           echo $RDS_PASSWORD | base64 --decode >> $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-
-#           mkdir -p $RDS_SECRET_TEST_DIR &&
-#           echo $RDS_URL | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-#           echo $RDS_USERNAME | base64 --decode >> $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-#           echo $RDS_PASSWORD | base64 --decode >> $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME
-
       #추가
     - name: Make Gradle Wrapper script executable
       run: chmod +x /home/runner/work/kkeujeok-server/kkeujeok-server/gradlew
@@ -70,7 +46,7 @@ jobs:
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
 #        arguments: clean build -x test
-        arguments: clean build -Pjasypt.encryptor.password=${{ secrets.ENCRYPTOR_KEY }} -x test
+        arguments: clean build -Pjasypt.encryptor.password=$ENCRYPTOR_KEY -x test
 
       # (4) AWS 인증 (IAM 사용자 Access Key, Secret Key 활용)
     - name: Configure AWS credentials

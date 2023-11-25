@@ -26,7 +26,7 @@ spring:
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
-    password : ${ENCRYPTOR_KEY}
+#    password : ${ENCRYPTOR_KEY}
 
 ##H2 DB 설정
 #spring:
