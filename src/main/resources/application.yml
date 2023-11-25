@@ -1,3 +1,25 @@
+#DB 설정
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rds-kkeujeok-instance.cltggg11f5qt.ap-northeast-2.rds.amazonaws.com:3306/kkeujeok_rds_name?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: kkeujeok
+    password: 2023kkeujeok
+
+  #JPA 설정
+  jpa:
+    database-platform:
+    hibernate:
+      ddl-auto: create
+
+    #배포 할 떄는 open-in-view false 설정
+    open-in-view: false
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
 ##H2 DB 설정
 #spring:
 #  datasource:
@@ -18,34 +40,3 @@
 #      hibernate:
 #        show_sql: true
 #        format_sql: true
-
-#DB 설정
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://rds-kkeujeok-instance.cltggg11f5qt.ap-northeast-2.rds.amazonaws.com:3306/kkeujeok_rds_name?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-#    username: kkeujeok
-#    password: 2023kkeujeok
-
-    url: ENC(4QlDmh6GBxrrA4/NiAXKfhhAYWoRmoH8f4IxQT5Ag5c2vdnek5GZ455qLJDt8yTH6prFV4kr6W904pflvgoX8H84fZQwJ+HcQYs44mY8JpvOkwBFc1nFiv2l230bqWHS052eXxnCrtklbXEm0l6P0n6snY7n2awSzhWd4BMmyVR7bqIB+fSAB/tKuL+Mq1FBydlo6D6gkWyQqHhGY9iiFAXT4XE4F658)
-    username: ENC(g4quiQ4uZT5QCMgBbFD8pFlHbufIsR/c)
-    password: ENC(nIcMWjrOU+Lbp69XnYLE68XY3fQJA7hi)
-
-  #JPA 설정
-  jpa:
-    database-platform:
-    hibernate:
-      ddl-auto: create
-
-    #배포 할 떄는 open-in-view false 설정
-    open-in-view: false
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
-
-jasypt:
-  encryptor:
-    bean: jasyptStringEncryptor
-    password :
