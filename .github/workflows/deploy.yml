@@ -36,18 +36,22 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-#    # Github Repository Secrets를 통해 환경 변수 파일을 생성합니다.
-#    - name: Generate Environment Variables File for Production
-#      run: |
-#        echo "RDS_URL=$RDS_URL" >> .env.production
-#        echo "RDS_USERNAME=$RDS_USERNAME" >> .env.production
-#        echo "RDS_PASSWORD=$RDS_PASSWORD" >> .env.production
-#      env:
-#        RDS_URL: ${{ secrets.RDS_URL }}
-#        RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
-#        RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
+    - name: Copy Secret
+      env:
+        RDS_URL: ${{ secrets.OCCUPY_SECRET }}
+        RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
+        RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
+        RDS_SECRET_DIR: src/main/resources
+        RDS_SECRET_TEST_DIR: src/test/resources
+        RDS_SECRET_DIR_FILE_NAME: application-secret.yml
+      run: echo $RDS_URL | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+           echo $RDS_USERNAME | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+           echo $RDS_PASSWORD | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+           echo $RDS_URL | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+           echo $RDS_USERNAME | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+           echo $RDS_PASSWORD | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME
 
-    #추가
+      #추가
     - name: Make Gradle Wrapper script executable
       run: chmod +x /home/runner/work/kkeujeok-server/kkeujeok-server/gradlew
 

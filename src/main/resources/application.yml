@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${{ secrets.RDS_URL }}
+    url: jdbc:mysql://${{ secrets.RDS_URL }}:3306/kkeujeok_rds_name?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ${{ secrets.RDS_USERNAME }}
     password: ${{ secrets.RDS_PASSWORD }}
 
