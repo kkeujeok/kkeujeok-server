@@ -11,7 +11,7 @@ public class HelloController {
     @GetMapping
     public String hello() {
 
-        return "CI/CD - Deploy Test222";
+        return "NginX Test - 8080";
     }
 
 }
