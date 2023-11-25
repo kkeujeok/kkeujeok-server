@@ -10,7 +10,7 @@
 #  jpa:
 #    database-platform:
 #    hibernate:
-#      ddl-auto: create
+#      ddl-auto: create # validate
 #
 #    #배포 할 떄는 open-in-view false 설정
 #    open-in-view: false
