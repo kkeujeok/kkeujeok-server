@@ -24,6 +24,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
 
+    env:
+      RDS_URL: ${{ secrets.RDS_URL }}
+      RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
+      RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
+
     steps:
     # (1) 기본 체크아웃
     - name: Checkout
@@ -36,25 +41,30 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Copy Secret
-      run:
-           mkdir -p $RDS_SECRET_DIR &&
-           echo $RDS_URL | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-           echo $RDS_USERNAME | base64 --decode >> $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-           echo $RDS_PASSWORD | base64 --decode >> $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+    - name: Update application.yml with Secrets
+      run: |
+        echo "spring.datasource.url: jdbc:mysql://${RDS_URL}:3306/kkeujeok_rds_name?serverTimezone=Asia/Seoul&characterEncoding=UTF-8" >> src/main/resources/application.yml
+        echo "spring.datasource.username: ${RDS_USERNAME}" >> src/main/resources/application.yml
+        echo "spring.datasource.password: ${RDS_PASSWORD}" >> src/main/resources/application.yml
 
-           mkdir -p $RDS_SECRET_TEST_DIR &&
-           echo $RDS_URL | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-           echo $RDS_USERNAME | base64 --decode >> $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-           echo $RDS_PASSWORD | base64 --decode >> $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME
-      env:
-        RDS_URL: ${{ secrets.OCCUPY_SECRET }}
-        RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
-        RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
-        RDS_SECRET_DIR: src/main/resources
-        RDS_SECRET_TEST_DIR: src/test/resources
-        RDS_SECRET_DIR_FILE_NAME: application-secret.yml
-
+#    - name: Copy Secret
+#      run:
+#           mkdir -p $RDS_SECRET_DIR &&
+#           echo $RDS_URL | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+#           echo $RDS_USERNAME | base64 --decode >> $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+#           echo $RDS_PASSWORD | base64 --decode >> $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+#
+#           mkdir -p $RDS_SECRET_TEST_DIR &&
+#           echo $RDS_URL | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+#           echo $RDS_USERNAME | base64 --decode >> $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+#           echo $RDS_PASSWORD | base64 --decode >> $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME
+#      env:
+#        RDS_URL: ${{ secrets.OCCUPY_SECRET }}
+#        RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
+#        RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
+#        RDS_SECRET_DIR: src/main/resources
+#        RDS_SECRET_TEST_DIR: src/test/resources
+#        RDS_SECRET_DIR_FILE_NAME: application-secret.yml
 
       #추가
     - name: Make Gradle Wrapper script executable
