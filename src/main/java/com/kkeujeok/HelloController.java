@@ -11,7 +11,7 @@ public class HelloController {
     @GetMapping
     public String hello() {
 
-        return "NginX Test - 8080";
+        return "Entity good";
     }
 
 }
