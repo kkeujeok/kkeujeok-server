@@ -36,33 +36,25 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-#    - name: Copy Secret
-#      env:
-#        RDS_URL: ${{ secrets.OCCUPY_SECRET }}
-#        RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
-#        RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
-#        RDS_SECRET_DIR: src/main/resources
-#        RDS_SECRET_TEST_DIR: src/test/resources
-#        RDS_SECRET_DIR_FILE_NAME: application-secret.yml
-#      run:
-#           mkdir -p $RDS_SECRET_DIR &&
-#           echo $RDS_URL | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-#           echo $RDS_USERNAME | base64 --decode >> $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-#           echo $RDS_PASSWORD | base64 --decode >> $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-#
-#           mkdir -p $RDS_SECRET_TEST_DIR &&
-#           echo $RDS_URL | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-#           echo $RDS_USERNAME | base64 --decode >> $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
-#           echo $RDS_PASSWORD | base64 --decode >> $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME
+    - name: Copy Secret
+      run:
+           mkdir -p $RDS_SECRET_DIR &&
+           echo $RDS_URL | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+           echo $RDS_USERNAME | base64 --decode >> $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+           echo $RDS_PASSWORD | base64 --decode >> $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
 
-    - name: Set Yaml
-      uses: microsoft/variable-substitution@v1
-      with:
-        files: ./src/main/resources/application-db.yml
+           mkdir -p $RDS_SECRET_TEST_DIR &&
+           echo $RDS_URL | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+           echo $RDS_USERNAME | base64 --decode >> $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+           echo $RDS_PASSWORD | base64 --decode >> $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME
       env:
-        spring.datasource.url: ${{ secrets.RDS_URL }}
-        spring.datasource.username: ${{ secrets.RDS_USERNAME }}
-        spring.datasource.password: ${{ secrets.RDS_PASSWORD }}
+        RDS_URL: ${{ secrets.OCCUPY_SECRET }}
+        RDS_USERNAME: ${{ secrets.RDS_USERNAME }}
+        RDS_PASSWORD: ${{ secrets.RDS_PASSWORD }}
+        RDS_SECRET_DIR: src/main/resources
+        RDS_SECRET_TEST_DIR: src/test/resources
+        RDS_SECRET_DIR_FILE_NAME: application-secret.yml
+
 
       #추가
     - name: Make Gradle Wrapper script executable
