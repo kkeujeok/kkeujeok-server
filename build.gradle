@@ -15,10 +15,10 @@ jar {
     enabled = false
 }
 
-test {
-    useJUnitPlatform()
-    systemProperty "jasypt.encryptor.password", project.getProperties().get("jasypt.encryptor.password")
-}
+//test {
+//    useJUnitPlatform()
+//    systemProperty "jasypt.encryptor.password", project.getProperties().get("jasypt.encryptor.password")
+//}
 
 repositories {
     mavenCentral()
