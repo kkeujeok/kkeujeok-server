@@ -34,3 +34,4 @@ jobs:
         
     - name: Build with Gradle
       run: ./gradlew clean build
+#      run: ./gradlew clean build -Pjasypt.encryptor.password=5678
