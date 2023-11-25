@@ -37,6 +37,11 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+      # 암호화
+    - run: touch ./src/main/resources/application-secret.properties
+    - run: echo "${{ secrets.APPLICATION_SECRET }}" > ./src/main/resources/application-secret.properties
+    - run: cat ./src/main/resources/application-secret.properties
+
       #추가
     - name: Make Gradle Wrapper script executable
       run: chmod +x /home/runner/work/kkeujeok-server/kkeujeok-server/gradlew
