@@ -44,9 +44,13 @@ jobs:
         RDS_SECRET_DIR: src/main/resources
         RDS_SECRET_TEST_DIR: src/test/resources
         RDS_SECRET_DIR_FILE_NAME: application-secret.yml
-      run: echo $RDS_URL | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+      run:
+           mkdir -p $RDS_SECRET_DIR
+           echo $RDS_URL | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
            echo $RDS_USERNAME | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
            echo $RDS_PASSWORD | base64 --decode > $RDS_SECRET_DIR/$RDS_SECRET_DIR_FILE_NAME &&
+        
+           mkdir -p $RDS_SECRET_TEST_DIR
            echo $RDS_URL | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
            echo $RDS_USERNAME | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME &&
            echo $RDS_PASSWORD | base64 --decode > $RDS_SECRET_TEST_DIR/$RDS_SECRET_DIR_FILE_NAME
