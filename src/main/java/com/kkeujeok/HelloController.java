@@ -11,7 +11,7 @@ public class HelloController {
     @GetMapping
     public String hello() {
 
-        return "Entity good";
+        return "Entity ?";
     }
 
 }
