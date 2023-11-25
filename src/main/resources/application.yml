@@ -1,16 +1,41 @@
 #H2 DB 설정
+#spring:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:tcp://localhost/~/kkeujeok
+#    username: sa
+#    password:
+#
+#  #JPA 설정
+#  jpa:
+#    database-platform:
+#    hibernate:
+#      ddl-auto: create # validate
+#
+#    #배포 할 떄는 open-in-view false 설정
+#    open-in-view: false
+#    properties:
+#      hibernate:
+#        show_sql: true
+#        format_sql: true
+
+#DB 설정
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/kkeujeok
-    username: sa
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    url: jdbc:mysql://rds-kkeujeok-instance.cltggg11f5qt.ap-northeast-2.rds.amazonaws.com:3306/kkeujeok_rds_name?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    #    username: kkeujeok
+    #    password: 2023kkeujeok
+    url: ENC(7758qNo0qhXCmaGwTB/9xgatzVFMgmJjaghTSUNyNgocjGGoBZtXOwEAxSlLOhau1LXv1AxN/Jg8jugYk7aVnVPLmMlVhXfmXd90qqszk9+JekHPDM/3MbLg1pstawONaVxw8rc38dGHejFbUg6Wrau5+LQtC6X//YsjW/7qFxg+E87FCGwD+OqKTRiyheS5yyl5RJCbRWwmqqlav8kxtI98NT2zR7k5)
+    username: ENC(Go3P6p2kBOOVM2ik7z3KjsM+QNpm++Gj)
+    password: ENC(SVCzBPusZAVwEkGFTtrZDq3+BdOIWPyD)
+
 
   #JPA 설정
   jpa:
     database-platform:
     hibernate:
-      ddl-auto: create # validate
+      ddl-auto: create
 
     #배포 할 떄는 open-in-view false 설정
     open-in-view: false
@@ -18,3 +43,14 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  profiles:
+    include: secret
+
+#jasypt:
+#  encryptor:
+#    bean: jasyptStringEncryptor
+#    password : 5678
+#    password : ${ENCRYPTOR_KEY}
+
