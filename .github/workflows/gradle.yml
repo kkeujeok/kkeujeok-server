@@ -33,5 +33,5 @@ jobs:
       run: chmod +x gradlew
         
     - name: Build with Gradle
-#      run: ./gradlew clean build -x test
-      run: ./gradlew clean build -Pjasypt.encryptor.password=${{ secrets.ENCRYPTOR_KEY }} -x test
+      run: ./gradlew clean build -x test
+#      run: ./gradlew clean build -Pjasypt.encryptor.password=${{ secrets.ENCRYPTOR_KEY }} -x test
