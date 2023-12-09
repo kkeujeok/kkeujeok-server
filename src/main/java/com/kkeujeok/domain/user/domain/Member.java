@@ -1,5 +1,7 @@
 package com.kkeujeok.domain.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kkeujeok.domain.friend.domain.Friend;
 import com.kkeujeok.domain.rollingPaper.domain.RollingPaper;
 import jakarta.persistence.*;
@@ -16,10 +18,14 @@ public class Member {
     private long id;
 
     private String email;
+
     private String password;
+
     private String nickname;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
     private int luck;
 
     @OneToMany(mappedBy = "member")
