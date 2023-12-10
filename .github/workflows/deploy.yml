@@ -33,6 +33,11 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    - name: create application.properties file
+      run: |
+          touch ./src/main/resources/application-rds.yml
+          echo "${{ secrets.DATABASE_YML }}" | base64 --decode > src/main/resources/application-rds.yml
+
       #추가
     - name: Make Gradle Wrapper script executable
       run: chmod +x /home/runner/work/kkeujeok-server/kkeujeok-server/gradlew
