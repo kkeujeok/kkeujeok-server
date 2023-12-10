@@ -1,6 +1,6 @@
 package com.kkeujeok.domain.rollingPaper.domain;
 
-import com.kkeujeok.domain.user.domain.Member;
+import com.kkeujeok.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -17,5 +17,5 @@ public class RollingPaper {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
-    private Member member;
+    private User user;
 }

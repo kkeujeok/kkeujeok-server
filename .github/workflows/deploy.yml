@@ -4,11 +4,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
-# 본인이 설정한 값을 여기서 채워넣습니다.
-# 리전, 버킷 이름, CodeDeploy 앱 이름, CodeDeploy 배포 그룹 이름
 env:
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: kkeujeok-cicd-s3-bucket
@@ -37,11 +33,6 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-      # 암호화
-#    - run: touch ./src/main/resources/application-secret.properties
-#    - run: echo "${{ secrets.APPLICATION_SECRET }}" > ./src/main/resources/application-secret.properties
-#    - run: cat ./src/main/resources/application-secret.properties
-
       #추가
     - name: Make Gradle Wrapper script executable
       run: chmod +x /home/runner/work/kkeujeok-server/kkeujeok-server/gradlew
@@ -51,7 +42,6 @@ jobs:
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
         arguments: clean build -x test
-#        arguments: clean build -Pjasypt.encryptor.password=$ENCRYPTOR_KEY -x test
 
       # (4) AWS 인증 (IAM 사용자 Access Key, Secret Key 활용)
     - name: Configure AWS credentials
