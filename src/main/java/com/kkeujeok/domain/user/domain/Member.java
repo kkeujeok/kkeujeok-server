@@ -28,4 +28,7 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Friend> friends = new ArrayList<>();
 
+    public void increaseLuck() {
+        this.luck += 1;
+    }
 }
