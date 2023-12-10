@@ -3,10 +3,7 @@ package com.kkeujeok.domain.friend.controller;
 import com.kkeujeok.domain.friend.service.FriendService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,8 +19,15 @@ public class FriendController {
     }
 
     // Description : 친구 신청
-
+    @PostMapping("/{user-id}/{friend-id}")
+    public ResponseEntity<?> sendFriend(@PathVariable(value = "user-id") Long userId, @PathVariable(value = "friend-id") Long friendId) {
+        return friendService.sendFriend(userId, friendId);
+    }
 
     // Description : 친구 삭제
+    @DeleteMapping("/{user-id}/{friend-id}")
+    public ResponseEntity<?> deleteFriend(@PathVariable(value = "user-id") Long userId, @PathVariable(value = "friend-id") Long friendId) {
+        return friendService.deleteFriend(userId, friendId);
+    }
 
 }

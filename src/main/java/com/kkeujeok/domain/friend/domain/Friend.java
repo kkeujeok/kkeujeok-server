@@ -1,7 +1,7 @@
 package com.kkeujeok.domain.friend.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.kkeujeok.domain.user.domain.Member;
+import com.kkeujeok.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,15 +18,17 @@ public class Friend {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    private boolean isAllow;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "friend_id")
+    private User friend;
 
     @Builder
-    public Friend(long id, Member member, boolean isAllow) {
+    public Friend(long id, User user, User friend) {
         this.id = id;
-        this.member = member;
-        this.isAllow = isAllow;
+        this.user = user;
+        this.friend = friend;
     }
 }

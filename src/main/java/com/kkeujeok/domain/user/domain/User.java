@@ -1,7 +1,6 @@
 package com.kkeujeok.domain.user.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kkeujeok.domain.friend.domain.Friend;
 import com.kkeujeok.domain.rollingPaper.domain.RollingPaper;
 import jakarta.persistence.*;
@@ -12,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
-public class Member {
+public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -28,10 +27,10 @@ public class Member {
 
     private int luck;
 
-    @OneToMany(mappedBy = "member")
-    private List<RollingPaper> rollingPapers = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<RollingPaper> rollingPapers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    private List<Friend> friends = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<Friend> friends = new ArrayList<>();
 
 }
