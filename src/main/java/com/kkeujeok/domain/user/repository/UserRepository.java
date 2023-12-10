@@ -1,4 +1,4 @@
-package com.kkeujeok.domain.user.domain.repository;
+package com.kkeujeok.domain.user.repository;
 
 import com.kkeujeok.domain.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,8 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    User save(User user);
+    Optional<User> findByEmail(String email);
 
+    }
 //    @Query("SELECT u FROM User u LEFT JOIN FETCH u.friends WHERE u.id = :userId")
 //    Optional<User> findMemberWithFriend(@Param("userId") Long userId);
 
-}
