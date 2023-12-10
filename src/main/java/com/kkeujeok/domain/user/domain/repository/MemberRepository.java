@@ -13,5 +13,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("SELECT COUNT(m) FROM Member m WHERE m.luck > (SELECT m2.luck FROM Member m2 WHERE m2.id = :userId)")
     int getRankingOfUser(Long userId);
 
-
+    List<Member> findByNicknameContaining(String searchWord);
 }

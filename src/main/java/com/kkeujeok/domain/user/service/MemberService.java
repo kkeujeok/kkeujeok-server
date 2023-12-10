@@ -36,6 +36,11 @@ public class MemberService {
         member.increaseLuck();
         memberRepository.save(member);
     }
-
+    public List<MemberResponse> searchMembers(String searchWord) { //검색
+        List<Member> members = memberRepository.findByNicknameContaining(searchWord);
+        return members.stream()
+                .map(member -> new MemberResponse(member.getId(), member.getNickname(), member.getEmail()))
+                .collect(Collectors.toList());
+    }
 
 }

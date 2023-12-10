@@ -28,5 +28,10 @@ public class MemberController {
     public void increaseLuck(@PathVariable Long userId) {
         memberService.increaseLuck(userId);
     }
+    @GetMapping("/members/{search-word}")
+    public ResponseEntity<List<MemberResponse>> searchMembers(@PathVariable String searchWord) {
+        List<MemberResponse> members = memberService.searchMembers(searchWord);
+        return ResponseEntity.ok(members);
+    }
 
 }
