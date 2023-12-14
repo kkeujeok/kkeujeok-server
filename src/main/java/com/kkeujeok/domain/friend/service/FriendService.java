@@ -6,7 +6,7 @@ import com.kkeujeok.domain.friend.dto.response.FindAllFriendsRes;
 import com.kkeujeok.domain.friend.dto.response.FriendDTO;
 import com.kkeujeok.domain.friend.dto.response.SendFriendRes;
 import com.kkeujeok.domain.user.domain.User;
-import com.kkeujeok.domain.user.repository.UserRepository;
+import com.kkeujeok.domain.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

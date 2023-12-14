@@ -29,6 +29,10 @@ public class User {
 
     private boolean loginStatus;
 
+    public void increaseLuck() {
+        this.luck += 1;
+    }
+
     public boolean getLoginStatus() {
         return this.loginStatus;
     }
