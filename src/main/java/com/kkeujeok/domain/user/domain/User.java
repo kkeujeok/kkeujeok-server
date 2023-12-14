@@ -29,6 +29,9 @@ public class User {
 
     private boolean loginStatus;
 
+    @OneToMany(mappedBy = "user")
+    private List<RollingPaper> rollingPapers = new ArrayList<>();
+
     public void increaseLuck() {
         this.luck += 1;
     }
