@@ -2,14 +2,16 @@ package com.kkeujeok.domain.user.controller;
 
 import com.kkeujeok.domain.user.domain.User;
 import com.kkeujeok.domain.user.dto.LoginUserReq;
-import com.kkeujeok.domain.user.dto.PostUserReq;
-import com.kkeujeok.domain.user.dto.ResponseJoin;
+import com.kkeujeok.domain.user.dto.UserForm;
+import com.kkeujeok.domain.user.dto.member.response.MemberRankingResponse;
+import com.kkeujeok.domain.user.dto.member.response.MemberResponse;
 import com.kkeujeok.domain.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -24,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<?> create(UserForm form) {
+    public ResponseEntity<?> create(@RequestBody UserForm form) {
         User user = new User();
         user.setEmail(form.getEmail());
         user.setPW(form.getPw());
@@ -40,7 +42,6 @@ public class UserController {
         }
     }
 
-
     @ResponseBody
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginUserReq loginUserReq) {
@@ -54,16 +55,18 @@ public class UserController {
             return new ResponseEntity<>("Login failed", HttpStatus.UNAUTHORIZED);
         }
     }
-    @PostMapping("/delete")
-    public void deleteUser(@RequestParam Long userIdx) {
-        userService.deleteUser(userIdx);
+    @DeleteMapping("/delete/{user-id}")
+    public void deleteUser(@PathVariable(value = "user-id") Long userId) {
+        userService.deleteUser(userId);
     }
-    @PostMapping("/logout")
-    public void logout(@RequestParam Long userIdx) {
-        userService.logout(userIdx);
+
+    @PostMapping("/logout/{user-id}")
+    public void logout(@PathVariable(value = "user-id") Long userId) {
+        userService.logout(userId);
     }
-    @PostMapping("/password")
-    public ResponseEntity<?> getPassword(@RequestParam String email) {
+
+    @GetMapping("/password/{user-email}")
+    public ResponseEntity<?> getPassword(@PathVariable(value = "user-email") String email) {
         try {
             String password = userService.getPasswordByEmail(email);
             return new ResponseEntity<>("User password: " + password, HttpStatus.OK);
@@ -71,4 +74,28 @@ public class UserController {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
     }
+
+    // 남영
+
+    @GetMapping("/ranking") //TOP10
+    public List<MemberRankingResponse> getRanking() {
+        return userService.getRanking();
+    }
+
+    @GetMapping("/ranking/{userId}") //내 등수
+    public int getUserRanking(@PathVariable Long userId) {
+        return userService.getUserRanking(userId);
+    }
+
+    @PostMapping("/{userId}/luck")
+    public void increaseLuck(@PathVariable Long userId) {
+        userService.increaseLuck(userId);
+    }
+
+    @GetMapping("/{search-word}")
+    public ResponseEntity<List<MemberResponse>> searchMembers(@PathVariable(value = "search-word") String searchWord) {
+        List<MemberResponse> members = userService.searchMembers(searchWord);
+        return ResponseEntity.ok(members);
+    }
+
 }
