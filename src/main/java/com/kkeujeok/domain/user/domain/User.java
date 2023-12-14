@@ -27,7 +27,12 @@ public class User {
 
     private int luck;
 
-    private Boolean loginStatus;
+    private boolean loginStatus;
+
+    public boolean getLoginStatus() {
+        return this.loginStatus;
+    }
+
     public void setEmail(String userEmail) {
         this.email = userEmail;
     }
@@ -44,7 +49,7 @@ public class User {
         this.gender = gender;
     }
 
-    public void setLoginStatus (Boolean status) {
+    public void setLoginStatus (boolean status) {
         this.loginStatus = status;
     }
 

@@ -3,17 +3,22 @@ package com.kkeujeok.domain.user.service;
 import com.kkeujeok.domain.user.domain.User;
 import com.kkeujeok.domain.user.dto.LoginUserReq;
 import com.kkeujeok.domain.user.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class UserService {
+
     private final UserRepository userRepository;
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     public boolean join(User user){
         if (isDuplicateUser(user)) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
@@ -22,23 +27,30 @@ public class UserService {
         return true;
     }
 
-    public Boolean login(LoginUserReq loginUserReq) {
-        User user = checkUserInfo(loginUserReq.getEmail(), loginUserReq.getPw());
+    @Transactional
+    public boolean login(LoginUserReq loginUserReq) {
+//        User user = checkUserInfo(loginUserReq.getEmail(), loginUserReq.getPw());
+        Optional<User> userByEmail = userRepository.findByEmail(loginUserReq.getEmail());
 
-        if (user != null) {
-            user.login();
-            // 여기에서 로그인 성공에 대한 추가 로직을 수행할 수 있습니다.
+        if (userByEmail.isEmpty()) {
+            return false;
         }
+
+        User user = userByEmail.get();
+        user.setLoginStatus(true);
+
         return user.getLoginStatus(); //true or false
     }
 
-    public void logout(Long userIdx) {
-        Optional<User> user = userRepository.findById(userIdx);
+    @Transactional
+    public void logout(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
         user.get().setLoginStatus(false);
     }
 
-    public void deleteUser(Long userIdx) { //계정 삭제
-        userRepository.deleteById(userIdx);
+    @Transactional
+    public void deleteUser(Long userId) { //계정 삭제
+        userRepository.deleteById(userId);
     }
 
     public String getPasswordByEmail(String email) {
