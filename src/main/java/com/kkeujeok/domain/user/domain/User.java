@@ -68,7 +68,6 @@ public class User {
         this.loginStatus = false;
     }
 
-
 //    @OneToMany(mappedBy = "user")
 //    private List<RollingPaper> rollingPapers = new ArrayList<>();
 

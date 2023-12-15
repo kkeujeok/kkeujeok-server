@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     UserService userService;
 
@@ -101,6 +101,13 @@ public class UserController {
     public ResponseEntity<List<UserResponse>> searchMembers(@PathVariable(value = "search-word") String searchWord) {
         List<UserResponse> users = userService.searchUsers(searchWord);
         return ResponseEntity.ok(users);
+    }
+
+    // Description : 마이페이지 조회
+    @GetMapping("/myPage/{user-id}")
+    public ResponseEntity<?> myPage(@PathVariable(value = "user-id") Long userId) {
+        return userService.myPage(userId);
+
     }
 
 }
