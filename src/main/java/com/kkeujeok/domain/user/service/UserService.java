@@ -123,16 +123,14 @@ public class UserService {
         return 0;
     }
     public List<UserResponse> searchUsers(String searchWord) { //검색
-        List<User> users = userRepository.findByNicknameContaining(searchWord);
-
+        List<User> users = userRepository.findByEmailContaining(searchWord);
         List<UserResponse> userResponseList = new ArrayList<>();
 
         for (User user : users) {
             UserResponse userResponse = UserResponse.builder()
-                    .id(user.getId())
+                    .email(user.getEmail())
                     .nickname(user.getNickname())
                     .build();
-
             userResponseList.add(userResponse);
         }
         return userResponseList;

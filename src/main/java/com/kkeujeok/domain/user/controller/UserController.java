@@ -97,7 +97,7 @@ public class UserController {
         return userService.getUserLuck(userId);
     }
 
-    @GetMapping("/{search-word}")
+    @GetMapping("/search/{search-word}")
     public List<UserResponse> searchUsers(@PathVariable(value = "search-word") String searchWord) {
         return userService.searchUsers(searchWord);
     }
