@@ -3,8 +3,8 @@ package com.kkeujeok.domain.user.controller;
 import com.kkeujeok.domain.user.domain.User;
 import com.kkeujeok.domain.user.dto.LoginUserReq;
 import com.kkeujeok.domain.user.dto.UserForm;
-import com.kkeujeok.domain.user.dto.member.response.MemberRankingResponse;
-import com.kkeujeok.domain.user.dto.member.response.MemberResponse;
+import com.kkeujeok.domain.user.dto.member.response.UserRankingResponse;
+import com.kkeujeok.domain.user.dto.member.response.UserResponse;
 import com.kkeujeok.domain.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -78,7 +78,7 @@ public class UserController {
     // 남영
 
     @GetMapping("/ranking") //TOP10
-    public List<MemberRankingResponse> getRanking() {
+    public List<UserRankingResponse> getRanking() {
         return userService.getRanking();
     }
 
@@ -93,9 +93,9 @@ public class UserController {
     }
 
     @GetMapping("/{search-word}")
-    public ResponseEntity<List<MemberResponse>> searchMembers(@PathVariable(value = "search-word") String searchWord) {
-        List<MemberResponse> members = userService.searchMembers(searchWord);
-        return ResponseEntity.ok(members);
+    public ResponseEntity<List<UserResponse>> searchMembers(@PathVariable(value = "search-word") String searchWord) {
+        List<UserResponse> users = userService.searchMembers(searchWord);
+        return ResponseEntity.ok(users);
     }
 
 }

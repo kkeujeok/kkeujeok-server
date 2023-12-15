@@ -2,10 +2,9 @@ package com.kkeujeok.domain.user.service;
 
 import com.kkeujeok.domain.user.domain.User;
 import com.kkeujeok.domain.user.dto.LoginUserReq;
-import com.kkeujeok.domain.user.dto.member.response.MemberRankingResponse;
-import com.kkeujeok.domain.user.dto.member.response.MemberResponse;
+import com.kkeujeok.domain.user.dto.member.response.UserRankingResponse;
+import com.kkeujeok.domain.user.dto.member.response.UserResponse;
 import com.kkeujeok.domain.user.domain.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -83,10 +82,10 @@ public class UserService {
 
     // 남영
 
-    public List<MemberRankingResponse> getRanking() { //TOP10
+    public List<UserRankingResponse> getRanking() { //TOP10
         return userRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "luck")))
                 .stream()
-                .map(member -> new MemberRankingResponse(member.getNickname(), member.getLuck()))
+                .map(member -> new UserRankingResponse(member.getNickname(), member.getLuck()))
                 .collect(Collectors.toList());
     }
 
@@ -107,10 +106,10 @@ public class UserService {
         }
     }
 
-    public List<MemberResponse> searchMembers(String searchWord) { //검색
-        List<User> members = userRepository.findByNicknameContaining(searchWord);
-        return members.stream()
-                .map(member -> new MemberResponse(member.getId(), member.getNickname(), member.getEmail()))
+    public List<UserResponse> searchMembers(String searchWord) { //검색
+        List<User> users = userRepository.findByNicknameContaining(searchWord);
+        return users.stream()
+                .map(user -> new UserResponse(user.getId(), user.getNickname()))
                 .collect(Collectors.toList());
     }
 
