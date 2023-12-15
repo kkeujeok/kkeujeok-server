@@ -1,29 +1,34 @@
 package com.kkeujeok.domain.user.service;
 
+import com.kkeujeok.domain.rollingPaper.Dto.RollingPaperDto;
+import com.kkeujeok.domain.rollingPaper.domain.RollingPaper;
+import com.kkeujeok.domain.rollingPaper.repository.RollingPaperRepository;
 import com.kkeujeok.domain.user.domain.User;
+import com.kkeujeok.domain.user.dto.EmptyUserRes;
+import com.kkeujeok.domain.user.dto.FindUserRes;
 import com.kkeujeok.domain.user.dto.LoginUserReq;
-import com.kkeujeok.domain.user.dto.member.response.MemberRankingResponse;
-import com.kkeujeok.domain.user.dto.member.response.MemberResponse;
+import com.kkeujeok.domain.user.dto.member.response.UserRankingResponse;
+import com.kkeujeok.domain.user.dto.member.response.UserResponse;
 import com.kkeujeok.domain.user.domain.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final RollingPaperRepository rollingPaperRepository;
 
     public boolean join(User user){
         if (isDuplicateUser(user)) {
@@ -83,10 +88,10 @@ public class UserService {
 
     // 남영
 
-    public List<MemberRankingResponse> getRanking() { //TOP10
+    public List<UserRankingResponse> getRanking() { //TOP10
         return userRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "luck")))
                 .stream()
-                .map(member -> new MemberRankingResponse(member.getNickname(), member.getLuck()))
+                .map(member -> new UserRankingResponse(member.getNickname(), member.getLuck()))
                 .collect(Collectors.toList());
     }
 
@@ -107,11 +112,46 @@ public class UserService {
         }
     }
 
-    public List<MemberResponse> searchMembers(String searchWord) { //검색
-        List<User> members = userRepository.findByNicknameContaining(searchWord);
-        return members.stream()
-                .map(member -> new MemberResponse(member.getId(), member.getNickname(), member.getEmail()))
+    public List<UserResponse> searchMembers(String searchWord) { //검색
+        List<User> users = userRepository.findByNicknameContaining(searchWord);
+        return users.stream()
+                .map(user -> new UserResponse(user.getId(), user.getNickname()))
                 .collect(Collectors.toList());
     }
 
+    // Description : 마이페이지 조회
+    public ResponseEntity<?> myPage(Long userId) {
+        Optional<User> userById = userRepository.findById(userId);
+        if (userById.isEmpty()) {
+            EmptyUserRes emptyUserRes = EmptyUserRes.builder()
+                    .message("해당 ID를 가진 유저가 존재하지 않습니다.")
+                    .build();
+
+            return ResponseEntity.badRequest().body(emptyUserRes);
+        }
+
+        User user = userById.get();
+
+        List<RollingPaper> rollingPaperList = rollingPaperRepository.findByUser(user);
+        List<RollingPaperDto> rollingPaperDtos = new ArrayList<>();
+        for (RollingPaper rollingPaper : rollingPaperList) {
+            RollingPaperDto rollingPaperDto = RollingPaperDto.builder()
+                    .id(rollingPaper.getId())
+                    .content(rollingPaper.getContent())
+                    .senderNickname(rollingPaper.getSenderNickname())
+                    .build();
+
+            rollingPaperDtos.add(rollingPaperDto);
+        }
+
+        FindUserRes findUserRes = FindUserRes.builder()
+                .userNickName(user.getNickname())
+                .gender(user.getGender())
+                .rollingPaperDtos(rollingPaperDtos)
+                .message("해당 유저의 마이페이지를 반환합니다.")
+                .build();
+
+        return ResponseEntity.ok(findUserRes);
+
+    }
 }

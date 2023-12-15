@@ -1,7 +1,7 @@
 package com.kkeujeok.domain.rollingPaper.Dto;
 
-
 import com.kkeujeok.domain.rollingPaper.domain.RollingPaper;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -11,6 +11,7 @@ public class RollingPaperDto {
     private String content;
     private String senderNickname;
 
+    @Builder
     public RollingPaperDto(long id, String content, String senderNickname) {
         this.id = id;
         this.content = content;
