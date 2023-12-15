@@ -4,7 +4,6 @@ import com.kkeujeok.domain.user.domain.User;
 import com.kkeujeok.domain.user.dto.LoginUserReq;
 import com.kkeujeok.domain.user.dto.UserForm;
 import com.kkeujeok.domain.user.dto.member.response.UserRankingResponse;
-import com.kkeujeok.domain.user.dto.member.response.UserResponse;
 import com.kkeujeok.domain.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +28,7 @@ public class UserController {
     public ResponseEntity<?> create(@RequestBody UserForm form) {
         User user = new User();
         user.setEmail(form.getEmail());
-        user.setPW(form.getPw());
+        user.setPW(form.getPassword());
         user.setGender(form.getGender());
         user.setNickname(form.getNickname());
 
@@ -98,9 +97,8 @@ public class UserController {
     }
 
     @GetMapping("/{search-word}")
-    public ResponseEntity<List<UserResponse>> searchMembers(@PathVariable(value = "search-word") String searchWord) {
-        List<UserResponse> users = userService.searchUsers(searchWord);
-        return ResponseEntity.ok(users);
+    public ResponseEntity<?> searchUsers(@PathVariable(value = "search-word") String searchWord) {
+        return userService.searchUsers(searchWord);
     }
 
     // Description : 마이페이지 조회

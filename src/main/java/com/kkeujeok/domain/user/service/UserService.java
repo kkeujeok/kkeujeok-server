@@ -1,5 +1,8 @@
 package com.kkeujeok.domain.user.service;
 
+import com.kkeujeok.domain.rollingPaper.Dto.RollingPaperDto;
+import com.kkeujeok.domain.rollingPaper.domain.RollingPaper;
+import com.kkeujeok.domain.rollingPaper.repository.RollingPaperRepository;
 import com.kkeujeok.domain.user.domain.User;
 import com.kkeujeok.domain.user.dto.EmptyUserRes;
 import com.kkeujeok.domain.user.dto.FindUserRes;
@@ -121,9 +124,20 @@ public class UserService {
     }
     public List<UserResponse> searchUsers(String searchWord) { //검색
         List<User> users = userRepository.findByNicknameContaining(searchWord);
-        return users.stream()
-                .map(user -> new UserResponse(user.getId(), user.getNickname()))
-                .collect(Collectors.toList());
+
+        List<UserResponse> userResponseList = new ArrayList<>();
+
+        for (User user : users) {
+            UserResponse userResponse = UserResponse.builder()
+                    .id(user.getId())
+                    .nickname(user.getNickname())
+                    .build();
+
+            userResponseList.add(userResponse);
+        }
+
+        return ResponseEntity.ok(userResponseList);
+
     }
 
     // Description : 마이페이지 조회
