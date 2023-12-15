@@ -135,9 +135,7 @@ public class UserService {
 
             userResponseList.add(userResponse);
         }
-
-        return ResponseEntity.ok(userResponseList);
-
+        return userResponseList;
     }
 
     // Description : 마이페이지 조회

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserForm {
     private String email;
-    private String pw;
+    private String password;
     private Gender gender;
     private String nickname;
 

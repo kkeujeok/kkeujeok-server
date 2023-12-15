@@ -4,6 +4,7 @@ import com.kkeujeok.domain.user.domain.User;
 import com.kkeujeok.domain.user.dto.LoginUserReq;
 import com.kkeujeok.domain.user.dto.UserForm;
 import com.kkeujeok.domain.user.dto.member.response.UserRankingResponse;
+import com.kkeujeok.domain.user.dto.member.response.UserResponse;
 import com.kkeujeok.domain.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -97,7 +98,7 @@ public class UserController {
     }
 
     @GetMapping("/{search-word}")
-    public ResponseEntity<?> searchUsers(@PathVariable(value = "search-word") String searchWord) {
+    public List<UserResponse> searchUsers(@PathVariable(value = "search-word") String searchWord) {
         return userService.searchUsers(searchWord);
     }
 

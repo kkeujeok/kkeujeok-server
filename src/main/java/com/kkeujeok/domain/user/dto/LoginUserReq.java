@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class LoginUserReq {
 
     private String email;
-    private String pw;
+    private String password;
 
 }
