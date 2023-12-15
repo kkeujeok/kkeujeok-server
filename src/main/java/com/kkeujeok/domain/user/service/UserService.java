@@ -112,11 +112,29 @@ public class UserService {
         }
     }
 
-    public List<UserResponse> searchMembers(String searchWord) { //검색
+//    public List<UserResponse> searchMembers(String searchWord) { //검색
+//        List<User> users = userRepository.findByNicknameContaining(searchWord);
+//        return users.stream()
+//                .map(user -> new UserResponse(user.getId(), user.getNickname()))
+//                .collect(Collectors.toList());
+//    }
+
+    public ResponseEntity<?> searchUsers(String searchWord) {
         List<User> users = userRepository.findByNicknameContaining(searchWord);
-        return users.stream()
-                .map(user -> new UserResponse(user.getId(), user.getNickname()))
-                .collect(Collectors.toList());
+
+        List<UserResponse> userResponseList = new ArrayList<>();
+
+        for (User user : users) {
+            UserResponse userResponse = UserResponse.builder()
+                    .id(user.getId())
+                    .nickname(user.getNickname())
+                    .build();
+
+            userResponseList.add(userResponse);
+        }
+
+        return ResponseEntity.ok(userResponseList);
+
     }
 
     // Description : 마이페이지 조회
@@ -154,4 +172,6 @@ public class UserService {
         return ResponseEntity.ok(findUserRes);
 
     }
+
+
 }

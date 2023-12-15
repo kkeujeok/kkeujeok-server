@@ -92,10 +92,14 @@ public class UserController {
         userService.increaseLuck(userId);
     }
 
+//    @GetMapping("/{search-word}")
+//    public ResponseEntity<List<UserResponse>> searchMembers(@PathVariable(value = "search-word") String searchWord) {
+//        List<UserResponse> users = userService.searchMembers(searchWord);
+//        return ResponseEntity.ok(users);
+//    }
     @GetMapping("/{search-word}")
-    public ResponseEntity<List<UserResponse>> searchMembers(@PathVariable(value = "search-word") String searchWord) {
-        List<UserResponse> users = userService.searchMembers(searchWord);
-        return ResponseEntity.ok(users);
+    public ResponseEntity<?> searchUsers(@PathVariable(value = "search-word") String searchWord) {
+        return userService.searchUsers(searchWord);
     }
 
     // Description : 마이페이지 조회

@@ -29,6 +29,8 @@ public class User {
 
     private boolean loginStatus;
 
+
+
     @OneToMany(mappedBy = "user")
     private List<RollingPaper> rollingPapers = new ArrayList<>();
 
