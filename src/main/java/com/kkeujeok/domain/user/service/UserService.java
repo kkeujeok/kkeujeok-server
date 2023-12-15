@@ -105,12 +105,23 @@ public class UserService {
             // 예를 들어, 사용자를 찾을 수 없다는 메시지를 로그에 남기거나 예외를 던지는 등의 처리를 할 수 있습니다.
         }
     }
-
-    public List<UserResponse> searchMembers(String searchWord) { //검색
+    public int getUserLuck(Long userId) {
+        Optional<User> member = userRepository.findById(userId);
+        if (member.isPresent()) {
+            User user = member.get();
+            return user.getLuck();
+        } else {
+            // 사용자를 찾을 수 없는 경우에 대한 처리 로직을 추가할 수 있습니다.
+            // 예를 들어, 사용자를 찾을 수 없다는 메시지를 로그에 남기거나 예외를 던지는 등의 처리를 할 수 있습니다.
+        }
+        return 0;
+    }
+    public List<UserResponse> searchUsers(String searchWord) { //검색
         List<User> users = userRepository.findByNicknameContaining(searchWord);
         return users.stream()
                 .map(user -> new UserResponse(user.getId(), user.getNickname()))
                 .collect(Collectors.toList());
     }
+
 
 }

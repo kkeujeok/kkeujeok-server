@@ -87,14 +87,19 @@ public class UserController {
         return userService.getUserRanking(userId);
     }
 
-    @PostMapping("/{userId}/luck")
+    @PostMapping("/{userId}/increaseLuck")//좋아요 +1
     public void increaseLuck(@PathVariable Long userId) {
         userService.increaseLuck(userId);
     }
 
+    @GetMapping("/{userId}/luck") //좋아요
+    public int getUserLuck(@PathVariable Long userId) {
+        return userService.getUserLuck(userId);
+    }
+
     @GetMapping("/{search-word}")
     public ResponseEntity<List<UserResponse>> searchMembers(@PathVariable(value = "search-word") String searchWord) {
-        List<UserResponse> users = userService.searchMembers(searchWord);
+        List<UserResponse> users = userService.searchUsers(searchWord);
         return ResponseEntity.ok(users);
     }
 
