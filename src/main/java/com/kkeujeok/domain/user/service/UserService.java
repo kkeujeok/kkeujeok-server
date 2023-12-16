@@ -44,7 +44,7 @@ public class UserService {
     @Transactional
     public String login(LoginUserReq loginUserReq) {
 //        User user = checkUserInfo(loginUserReq.getEmail(), loginUserReq.getPw());
-        Optional<User> userByEmail = userRepository.findByEmail(loginUserReq.getEmail());
+        Optional<User> userByEmail = userRepository.findByEmailAndPassword(loginUserReq.getEmail(), loginUserReq.getPw());
 
         if (userByEmail.isEmpty()) {
             throw new RuntimeException();
