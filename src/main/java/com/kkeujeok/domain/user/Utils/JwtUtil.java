@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
     // 설정파일로 빼서 환경변수로 사용하는 것을 권장
-    private final String SECRET = "secret";
+    private final String SECRET = "secretyurayuraryuararyuarayraururayruaryauryaurayruryaurayruryruaryaura";
 
     /**
      * 토큰 생성
