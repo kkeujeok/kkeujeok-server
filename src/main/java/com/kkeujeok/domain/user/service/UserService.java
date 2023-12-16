@@ -53,6 +53,14 @@ public class UserService {
         return user.getLoginStatus(); //true or false
     }
 
+    public boolean isEmailUnique(String email) {
+        return !userRepository.findByEmail(email).isPresent();
+    }
+
+    public boolean isNicknameUnique(String nickname) {
+        return !userRepository.findByNickname(nickname).isPresent();
+    }
+
     @Transactional
     public void logout(Long userId) {
         Optional<User> user = userRepository.findById(userId);

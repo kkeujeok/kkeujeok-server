@@ -25,6 +25,9 @@ public class UserController {
         //System.out.println("memberService = "+ memberService.getClass());
     }
 
+    // 유라
+
+    //회원가입
     @PostMapping("/join")
     public ResponseEntity<?> create(@RequestBody UserForm form) {
         User user = new User();
@@ -42,6 +45,19 @@ public class UserController {
         }
     }
 
+    // 이메일(아이디) 중복 확인
+    @PostMapping("/check-email")
+    public boolean checkEmailUnique(@RequestBody String email) {
+        return userService.isEmailUnique(email);
+    }
+
+    //닉네임 중복 확인
+    @PostMapping("/check-nickname")
+    public boolean checkNicknameUnique(@RequestBody String nickname) {
+        return userService.isNicknameUnique(nickname);
+    }
+
+    //로그인
     @ResponseBody
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginUserReq loginUserReq) {
@@ -55,16 +71,19 @@ public class UserController {
             return new ResponseEntity<>("Login failed", HttpStatus.UNAUTHORIZED);
         }
     }
+    //유저 삭제
     @DeleteMapping("/delete/{user-id}")
     public void deleteUser(@PathVariable(value = "user-id") Long userId) {
         userService.deleteUser(userId);
     }
 
+    //로그아웃
     @PostMapping("/logout/{user-id}")
     public void logout(@PathVariable(value = "user-id") Long userId) {
         userService.logout(userId);
     }
 
+    //비밀번호 찾기
     @GetMapping("/password/{user-email}")
     public ResponseEntity<?> getPassword(@PathVariable(value = "user-email") String email) {
         try {
@@ -74,6 +93,7 @@ public class UserController {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
     }
+
 
     // 남영
 
