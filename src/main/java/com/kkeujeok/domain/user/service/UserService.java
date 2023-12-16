@@ -3,6 +3,7 @@ package com.kkeujeok.domain.user.service;
 import com.kkeujeok.domain.rollingPaper.Dto.RollingPaperDto;
 import com.kkeujeok.domain.rollingPaper.domain.RollingPaper;
 import com.kkeujeok.domain.rollingPaper.repository.RollingPaperRepository;
+import com.kkeujeok.domain.user.Utils.JwtUtil;
 import com.kkeujeok.domain.user.domain.User;
 import com.kkeujeok.domain.user.dto.EmptyUserRes;
 import com.kkeujeok.domain.user.dto.FindUserRes;
@@ -30,6 +31,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final RollingPaperRepository rollingPaperRepository;
 
+    private final JwtUtil jwtUtil;
+
     public boolean join(User user){
         if (isDuplicateUser(user)) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
@@ -39,18 +42,21 @@ public class UserService {
     }
 
     @Transactional
-    public boolean login(LoginUserReq loginUserReq) {
+    public String login(LoginUserReq loginUserReq) {
 //        User user = checkUserInfo(loginUserReq.getEmail(), loginUserReq.getPw());
         Optional<User> userByEmail = userRepository.findByEmail(loginUserReq.getEmail());
 
         if (userByEmail.isEmpty()) {
-            return false;
+            throw new RuntimeException();
         }
 
         User user = userByEmail.get();
         user.setLoginStatus(true);
+        userRepository.save(user); //토큰 저장
 
-        return user.getLoginStatus(); //true or false
+        String userToken = jwtUtil.generateToken(user);
+
+        return userToken;
     }
 
     public boolean isEmailUnique(String email) {

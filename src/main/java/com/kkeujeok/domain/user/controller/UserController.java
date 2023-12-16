@@ -61,16 +61,17 @@ public class UserController {
     @ResponseBody
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginUserReq loginUserReq) {
-        boolean loginResult = userService.login(loginUserReq);
+        String token = String.valueOf(userService.login(loginUserReq));
 
-        if (loginResult) {
+        if (token != null) {
             // 로그인 성공에 대한 처리
-            return new ResponseEntity<>("Login successful", HttpStatus.OK);
+            return new ResponseEntity<>(token, HttpStatus.OK);
         } else {
             // 로그인 실패에 대한 처리
             return new ResponseEntity<>("Login failed", HttpStatus.UNAUTHORIZED);
         }
     }
+
     //유저 삭제
     @DeleteMapping("/delete/{user-id}")
     public void deleteUser(@PathVariable(value = "user-id") Long userId) {
