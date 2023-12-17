@@ -20,12 +20,12 @@ public class JwtUtil {
      */
     public String generateToken(User userDetails) {
         Claims claims = Jwts.claims();
-        claims.put("username", userDetails.getNickname());
-        return createToken(claims, userDetails.getNickname());
-        // username을 subject로 해서 token 생성
+        claims.put("userId", userDetails.getId());
+        return createToken(claims);
+        // userId을 subject로 해서 token 생성
     }
 
-    private String createToken(Claims claims, String subject) {
+    private String createToken(Claims claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -39,8 +39,8 @@ public class JwtUtil {
      */
     public Boolean isValidToken(String token, User userDetails) {
         log.info("isValidToken token = {}", token);
-        String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getNickname()) && !isTokenExpired(token));
+        Long userId = getUserIdFromToken(token);
+        return (userId.equals(userDetails.getId()) && !isTokenExpired(token));
     }
 
     /**
@@ -55,12 +55,12 @@ public class JwtUtil {
     }
 
     /**
-     * Claim 에서 username 가져오기
+     * Claim 에서 userId 가져오기
      */
-    public String getUsernameFromToken(String token) {
-        String username = String.valueOf(getAllClaims(token).get("username"));
-        log.info("getUsernameFormToken subject = {}", username);
-        return username;
+    public Long getUserIdFromToken(String token) {
+        Long userId = Long.parseLong(String.valueOf(getAllClaims(token).get("userId")));
+        log.info("getUserIdFormToken subject = {}", userId);
+        return userId;
     }
 
     /**
