@@ -132,6 +132,7 @@ public class UserService {
 
         for (User user : users) {
             UserResponse userResponse = UserResponse.builder()
+                    .id(user.getId())
                     .email(user.getEmail())
                     .nickname(user.getNickname())
                     .build();
