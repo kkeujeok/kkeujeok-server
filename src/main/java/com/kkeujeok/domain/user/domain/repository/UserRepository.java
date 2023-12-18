@@ -24,6 +24,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByNicknameContaining(String searchWord);
 
+    List<User> findByEmailContaining(String searchWord);
+
     }
 //    @Query("SELECT u FROM User u LEFT JOIN FETCH u.friends WHERE u.id = :userId")
 //    Optional<User> findMemberWithFriend(@Param("userId") Long userId);
