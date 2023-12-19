@@ -6,7 +6,7 @@
 
 ```
 # 요청 주소 (EC2)
-http://ec2-3-38-225-36.ap-northeast-2.compute.amazonaws.com
+- 비공개
 
 ```
 
