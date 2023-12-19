@@ -1,6 +1,5 @@
-<img width="733" alt="image" src="https://github.com/kkeujeok/kkeujeok-server/assets/81766889/01802390-8444-4530-a682-9ccbc3a6ed1c"># ✏️ 끄적끄적-Server
 
-명지대학교 '웹 프로그래밍2' 수업 3조 "끄적끄적" 팀 프로젝트
+# 명지대학교 '웹 프로그래밍2' 수업 3조 "끄적끄적" 팀 프로젝트
 
 <img width="550" alt="스크린샷 2023-12-19 오후 7 57 10" src="https://github.com/kkeujeok/kkeujeok-server/assets/81766889/5128ce2d-47ec-4769-ae44-fa2133aca864">
 
