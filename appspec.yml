@@ -12,12 +12,24 @@ permissions:
     owner: ubuntu
     group: ubuntu
 
+#hooks:
+#  AfterInstall:
+#    - location: scripts/stop.sh
+#      timeout: 60
+#      runas: ubuntu
+#  ApplicationStart:
+#    - location: scripts/start.sh
+#      timeout: 60
+#      runas: ubuntu
+
 hooks:
-  AfterInstall:
-    - location: scripts/stop.sh
-      timeout: 60
-      runas: ubuntu
   ApplicationStart:
-    - location: scripts/start.sh
-      timeout: 60
-      runas: ubuntu
+    - location: scripts/run_new_was.sh
+      timeout: 120
+      runas: root
+    - location: scripts/health_check.sh
+      timeout: 120
+      runas: root
+    - location: scripts/new_switch.sh
+      timeout: 120
+      runas: root
