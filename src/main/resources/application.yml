@@ -2,3 +2,21 @@ spring:
   profiles:
     # 로컬 : "h2"  ||  RDS : "rds"로 사용
     active: ["rds", "swagger"]
+
+---
+spring:
+  config:
+    activate:
+      on-profile: was1
+
+server:
+  port: 8081
+
+---
+spring:
+  config:
+    activate:
+      on-profile: was2
+
+server:
+  port: 8082
