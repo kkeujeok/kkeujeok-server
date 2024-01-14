@@ -108,9 +108,14 @@ public class UserController {
         return userService.getUserRanking(userId);
     }
 
-    @PostMapping("/{userId}/luck")
+    @PostMapping("/{userId}/increaseLuck")//좋아요 +1
     public void increaseLuck(@PathVariable Long userId) {
         userService.increaseLuck(userId);
+    }
+
+    @GetMapping("/{userId}/luck") //좋아요 가져오기
+    public int getUserLuck(@PathVariable Long userId) {
+        return userService.getUserLuck(userId);
     }
 
 //    @GetMapping("/search/{search-word}")
